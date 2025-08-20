@@ -6,14 +6,15 @@ const globalWaterMark = document.createElement('div');
 const getDataUrl = (binding: any) => {
     const rotate = -20;
     const canvas = globalCanvas || document.createElement('canvas');
-    const ctx = <CanvasRenderingContext2D>canvas.getContext('2d'); // 获取canvas画布的绘图环境
+    const ctx = canvas.getContext('2d'); // 获取canvas画布的绘图环境
+    if (!ctx) return '';
     canvas.width = 360; // 单个水印大小
     canvas.height = 180;
-    ctx?.rotate((rotate * Math.PI) / 180); // 水印旋转角度
+    ctx.rotate((rotate * Math.PI) / 180); // 水印旋转角度
     ctx.font = binding.font || '16px Vedana';
     ctx.fillStyle = binding.fillStyle || 'rgba(200, 200, 200, 0.30)';
     ctx.textBaseline = 'middle';
-    ctx?.fillText(binding.text || '默认水印文字', canvas.width / 10, canvas.height / 2);
+    ctx.fillText(binding.text || '默认水印文字', canvas.width / 10, canvas.height / 2);
     return canvas.toDataURL('image/png');
 };
 
@@ -85,26 +86,30 @@ const createObserver = (el: any, binding: any) => {
     const observer = new MutationObserver((mutationsList) => {
         // console.log('mutationsList', mutationsList);
         if (mutationsList.length) {
-            const {removedNodes, type, target} = mutationsList[0];
+            const mutation = mutationsList[0];
+            if (!mutation) return;
+            const {removedNodes, type, target} = mutation;
             const currStyle = waterMarkEl?.getAttribute('style');
 
             // 证明被删除了
-            if (removedNodes[0] === waterMarkEl) {
+            if (removedNodes && removedNodes[0] === waterMarkEl) {
                 // 停止观察。调用该方法后，DOM 再发生变动，也不会触发观察器
                 observer.disconnect();
                 // 初始化（设置水印，启动监控）
                 init(el, binding);
-            } else if (type === 'attributes' && target === waterMarkEl && currStyle !== style) {
+            } else if (type === 'attributes' && target === waterMarkEl && currStyle !== style && waterMarkEl) {
                 waterMarkEl.setAttribute('style', style);
             }
         }
     });
 
-    observer.observe(el.parentElement, {
-        childList: true,
-        attributes: true,
-        subtree: true,
-    });
+    if (el.parentElement) {
+        observer.observe(el.parentElement, {
+            childList: true,
+            attributes: true,
+            subtree: true,
+        });
+    }
 };
 
 export default {

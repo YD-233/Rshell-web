@@ -79,11 +79,13 @@ const state = reactive<State>({
 })
 const { options } = toRefs(state)
 
-const uid = route.query.uid;
+const uid = route.query.uid as string | null;
 // onMounted(()=>{
-//   ClientAPI.get_pid_list({uid:uid}).then((res)=>{
-//     tableData.value = res.data.data
-//   })
+//   if (uid) {
+//     ClientAPI.get_pid_list({uid:uid}).then((res)=>{
+//       tableData.value = res.data.data
+//     })
+//   }
 // })
 
 const handleKill = (val: any) => {
@@ -104,9 +106,11 @@ const handleKill = (val: any) => {
 watch(
     () => route.query,
     async (val: any) => {
-      ClientAPI.get_pid_list({uid:uid}).then((res)=>{
-        tableData.value = res.data.data
-      })
+      if (uid) {
+        ClientAPI.get_pid_list({uid:uid}).then((res)=>{
+          tableData.value = res.data.data
+        })
+      }
     },
     { immediate: true }
 )

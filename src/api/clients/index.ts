@@ -1,11 +1,6 @@
 import request from '@/utils/request'
 import type {LocationQueryValue} from "vue-router";
 import type {UnwrapRef} from "vue";
-
-import pinia from '@/stores/index';
-// import {useAxiosConfigStore} from '@/stores/server';
-// const axiosConfig = useAxiosConfigStore(pinia);
-
 export default{
     get_clients_list(data: { page: number; page_size: number}){
         return request({

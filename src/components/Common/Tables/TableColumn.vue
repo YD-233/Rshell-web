@@ -13,11 +13,7 @@ const handleAction = (command: Table.Command, { row, $index }: { row: any; $inde
   <!-- 如果有配置多级表头的数据，则递归该组件 -->
   <template v-if="col.children?.length">
     <el-table-column :label="col.label" :width="col.width" :align="col.align">
-      <TableColumn v-for="item in col.children" :col="item" :key="item.prop">
-        <template v-for="slot in Object.keys($slots)" #[slot]="scope: Record<string, any>">
-          <slot :name="slot" v-bind="scope"/>
-        </template>
-      </TableColumn>
+      <TableColumn v-for="item in col.children" :col="item" :key="item.prop" />
       <template #header="{ column, $index }">
         <component v-if="col.headerRender" :is="col.headerRender" :column="column" :index="$index"/>
         <slot v-else-if="col.headerSlot" :name="col.headerSlot" :column="column" :index="$index"></slot>

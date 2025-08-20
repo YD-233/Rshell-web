@@ -38,7 +38,7 @@ import {ElMessage,ElMessageBox} from "element-plus"
 
 const route = useRoute();
 const DownloadsTableData = ref([]);
-const uid = route.query.uid;
+const uid = route.query.uid as string | null;
 
 const handleDownload = (row :any) =>{
   ElMessageBox.confirm(`是否下载文件：${row.fileName}?`, '下载确认', {
@@ -49,13 +49,14 @@ const handleDownload = (row :any) =>{
       .then(async () => {
         ElMessage.warning("后台下载中，请勿关闭客户端，并保持网络畅通")
         try {
+          if (!uid) return;
           const res = await ClientAPI.download_downloaded_file({uid:uid,filePath:row.filePath});
           if (res.status == 200) {
             ElMessage.success('导出成功')
             const contentDisposition = res.headers['content-disposition'] || ''
             const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(contentDisposition)
             let fileName =
-                matches && matches.length > 1
+                matches && matches.length > 1 && matches[1]
                     ? decodeURIComponent(matches[1].replace(/['"]/g, ''))
                     : 'exported_file'
             let blob = new Blob([res.data], { type: res.headers['content-type'] })
@@ -104,6 +105,7 @@ const handleDownload = (row :any) =>{
       });
 };
 const fetchDownloadsInfo = async () =>{
+  if (!uid) return;
   const res = await ClientAPI.get_downloads_info({uid:uid});
   if (res.data.status === 200){
     DownloadsTableData.value = res.data.data;

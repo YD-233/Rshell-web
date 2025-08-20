@@ -8,41 +8,65 @@ interface ListItem {
     query: LocationQueryRaw;
 }
 
-export const useTagsStore = defineStore('tags', {
-    state: () => {
+interface TagsState {
+    list: ListItem[];
+}
+
+interface TagsGetters {
+    show: (state: TagsState) => boolean;
+    nameList: (state: TagsState) => string[];
+    [key: string]: any;
+}
+
+interface TagsActions {
+    delTagsItem(index: number): void;
+    setTagsItem(data: ListItem): void;
+    clearTags(): void;
+    closeTagsOther(data: ListItem[]): void;
+    closeCurrentTag(data: any): void;
+}
+
+export const useTagsStore = defineStore<'tags', TagsState, TagsGetters, TagsActions>('tags', {
+    state: (): TagsState => {
         return {
-            list: <ListItem[]>[]
+            list: [] as ListItem[]
         };
     },
     getters: {
-        show: state => {
+        show: (state: TagsState): boolean => {
             return state.list.length > 0;
         },
-        nameList: state => {
+        nameList: (state: TagsState): string[] => {
             return state.list.map(item => item.name);
         }
     },
     actions: {
-        delTagsItem(index: number) {
+        delTagsItem(index: number): void {
             this.list.splice(index, 1);
         },
-        setTagsItem(data: ListItem) {
+        setTagsItem(data: ListItem): void {
             this.list.push(data);
         },
-        clearTags() {
+        clearTags(): void {
             this.list = [];
         },
-        closeTagsOther(data: ListItem[]) {
+        closeTagsOther(data: ListItem[]): void {
             this.list = data;
         },
-        closeCurrentTag(data: any) {
+        closeCurrentTag(data: any): void {
             for (let i = 0, len = this.list.length; i < len; i++) {
                 const item = this.list[i];
-                if (item.path === data.$route.fullPath) {
+                if (item && item.path === data.$route.fullPath) {
                     if (i < len - 1) {
-                        data.$router.push(this.list[i + 1].path);
+                        const nextItem = this.list[i + 1];
+                        if (nextItem) {
+                            data.$router.push(nextItem.path);
+                        }
                     } else if (i > 0) {
-                        data.$router.push(this.list[i - 1].path);
+                        const prevItem = this.list[i - 1];
+                        if (prevItem) {
+                            data.$router.push(prevItem.path);
+                        }
                     } else {
                         data.$router.push('/');
                     }

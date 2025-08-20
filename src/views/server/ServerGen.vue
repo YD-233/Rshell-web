@@ -103,7 +103,7 @@ const handleGenerate = async () => {
       const contentDisposition = res.headers['content-disposition'] || ''
       const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(contentDisposition)
       let fileName =
-          matches && matches.length > 1
+          matches && matches.length > 1 && matches[1]
               ? decodeURIComponent(matches[1].replace(/['"]/g, ''))
               : 'exported_file'
       let blob = new Blob([res.data], { type: res.headers['content-type'] })

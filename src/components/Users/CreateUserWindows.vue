@@ -83,7 +83,6 @@ const onSubmit = (formEl: FormInstance | undefined) => {
       })
     } else {
       console.log('error submit!', fields)
-      return false
     }
   })
 }

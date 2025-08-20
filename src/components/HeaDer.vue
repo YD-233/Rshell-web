@@ -70,7 +70,7 @@ const extractColorByName = (name: any) => {
             class="user-avator"
             :size="40"
             :style="`background:${extractColorByName(username)}`"
-            ><span style="font-size: 18px; font-weight: bold">{{ username[0].toUpperCase() }}</span>
+            ><span style="font-size: 18px; font-weight: bold">{{ username && username[0] ? username[0].toUpperCase() : 'U' }}</span>
           </el-avatar>
           <span class="el-dropdown-link">
             <el-icon class="el-icon--right">

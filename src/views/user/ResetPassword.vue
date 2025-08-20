@@ -87,7 +87,6 @@ const submitForm = (formEl: FormInstance | undefined) => {
       resetPassword();
     } else {
       console.log('error submit!', fields);
-      return false
     }
   });
 }

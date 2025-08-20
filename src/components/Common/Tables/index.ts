@@ -1,10 +1,10 @@
 import type {TableColumnCtx} from 'element-plus/es/components/table/src/table-column/defaults'
 import {type TableInstance} from 'element-plus'
 
-type SortParams<T = any> = {
-    column: TableColumnCtx<T>
-    order: any
+type SortParams = {
     prop: string
+    column: any
+    order: 'ascending' | 'descending' | null
 }
 /**
  *  获取 element 的事件类型

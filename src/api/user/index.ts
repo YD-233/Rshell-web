@@ -30,12 +30,6 @@ export default {
       data: data
     })
   },
-  // rest_api_key() {
-  //   return request({
-  //     url: '/users/user_setting/reset_api_key',
-  //     method: 'get'
-  //   })
-  // },
   getUserInfo() {
     return request({
 //      baseURL: axiosConfig.baseURL,

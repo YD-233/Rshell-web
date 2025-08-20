@@ -14,7 +14,7 @@ const closeTags = (index: number) => {
   tags.delTagsItem(index);
   const item = tags.list[index] ? tags.list[index] : tags.list[index - 1];
   if (item) {
-    delItem.path === route.path && router.push({ path: item.path, query: item.query });
+    delItem && delItem.path === route.path && router.push({ path: item.path, query: item.query });
   } else {
     router.push('/');
   }

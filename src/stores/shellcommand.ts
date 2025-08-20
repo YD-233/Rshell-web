@@ -5,13 +5,21 @@ interface CommandHistoryState {
     currentIndices: Record<string, number>; // 每个uid对应当前的历史命令索引
 }
 
-export const useCommandHistoryStore = defineStore('commandHistory', {
+interface CommandHistoryActions {
+    addCommand(uid: string, command: string): void;
+    getPrevCommand(uid: string): string | undefined;
+    getNextCommand(uid: string): string | undefined;
+    clearCurrentIndex(uid: string): void;
+    clearHistory(uid: string): void;
+}
+
+export const useCommandHistoryStore = defineStore<'commandHistory', CommandHistoryState, {}, CommandHistoryActions>('commandHistory', {
     state: (): CommandHistoryState => ({
         histories: {}, // 初始化为空对象，用于存储不同uid的命令历史
         currentIndices: {}, // 初始化为空对象，用于存储不同uid的当前索引
     }),
     actions: {
-        addCommand(uid: string, command: string) {
+        addCommand(uid: string, command: string): void {
             if (command.trim()) {
                 // 如果不是重复的最后一条命令，则添加到历史记录
                 if (!this.histories[uid] || this.histories[uid][this.histories[uid].length - 1] !== command) {
@@ -32,8 +40,9 @@ export const useCommandHistoryStore = defineStore('commandHistory', {
                 this.currentIndices[uid] = this.histories[uid].length;
             }
 
-            if (this.currentIndices[uid] > 0) {
-                this.currentIndices[uid]--;
+            const currentIndex = this.currentIndices[uid];
+            if (currentIndex !== undefined && currentIndex > 0) {
+                this.currentIndices[uid] = currentIndex - 1;
                 return this.histories[uid][this.currentIndices[uid]];
             }
 
@@ -42,8 +51,9 @@ export const useCommandHistoryStore = defineStore('commandHistory', {
         getNextCommand(uid: string): string | undefined {
             if (!this.histories[uid] || this.histories[uid].length === 0) return undefined;
 
-            if (this.currentIndices[uid] >= 0 && this.currentIndices[uid] < this.histories[uid].length - 1) {
-                this.currentIndices[uid]++;
+            const currentIndex = this.currentIndices[uid];
+            if (currentIndex !== undefined && currentIndex >= 0 && currentIndex < this.histories[uid].length - 1) {
+                this.currentIndices[uid] = currentIndex + 1;
                 return this.histories[uid][this.currentIndices[uid]];
             } else {
                 // 如果已经是最新的命令或者没有更多命令，则恢复到初始状态
@@ -51,10 +61,10 @@ export const useCommandHistoryStore = defineStore('commandHistory', {
                 return '';
             }
         },
-        clearCurrentIndex(uid: string) {
+        clearCurrentIndex(uid: string): void {
             this.currentIndices[uid] = -1;
         },
-        clearHistory(uid: string) {
+        clearHistory(uid: string): void {
             if (this.histories[uid]) {
                 delete this.histories[uid];
                 delete this.currentIndices[uid];

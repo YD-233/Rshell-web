@@ -53,24 +53,6 @@ const router = createRouter({
           component: () => import('@/views/server/WebDelivery.vue')
         },
 
-        // {
-        //   path: '/user_list',
-        //   name: 'user_list',
-        //   meta: {
-        //     title: '用户列表',
-        //     permiss: '2'
-        //   },
-        //   component: () => import('@/views/user/UserView.vue')
-        // },
-        // {
-        //   path: '/user',
-        //   name: 'user_list',
-        //   meta: {
-        //     title: '用户列表',
-        //     permiss: '2'
-        //   },
-        //   component: () => import('@/views/user/UserView.vue')
-        // },
         {
           path: '/user/resetpassword',
           name: 'resetpassword',
@@ -80,15 +62,6 @@ const router = createRouter({
           },
           component: () => import('@/views/user/ResetPassword.vue')
         },
-        // {
-        //   path: '/user/info',
-        //   name: 'userinfo',
-        //   meta: {
-        //     title: '个人中心',
-        //     permiss: '1'
-        //   },
-        //   component: () => import('@/views/user/UserInfo.vue')
-        // }
       ]
     },
     {
@@ -171,14 +144,6 @@ const router = createRouter({
       },
       component: () => import('@/views/error/401View.vue')
     },
-    // {
-    //   path: '/test',
-    //   name: 'test',
-    //   meta: {
-    //     title: '测试页面'
-    //   },
-    //   component: () => import('@/components/Common/TestVIew.vue')
-    // }
   ]
 })
 

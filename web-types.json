@@ -6,11 +6,7 @@
   "contributions": {
     "html": {
       "types-syntax": "typescript",
-      "attributes": [
-        {
-          "name": "v-watermark"
-        }
-      ]
+      "attributes": []
     }
   }
 }

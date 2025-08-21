@@ -1,24 +1,15 @@
 <script setup lang="ts">
-import SideBar from "@/components/Clients/SideBar.vue";
+import ClientSideBar from "@/components/Clients/SideBar.vue";
 import {useTagsStore} from "@/stores/tags";
-import {computed, reactive} from "vue";
-import {useUserStore} from "@/stores/user";
 
-const users = useUserStore();
 const tags = useTagsStore();
-const wartermarkText = computed(() => {
-  return `Rshell-${users.username}`;
-});
-let watermark = reactive({
-  text: wartermarkText.value,
-})
 </script>
 
 <template>
-  <div v-watermark="watermark">
+  <div>
     <h1 style="margin-left: 2%;margin-top: 20px">客户端</h1>
-    <SideBar></SideBar>
-    <div class="content-box" :class="{ 'content-collapse': SideBar.collapse }">
+    <ClientSideBar></ClientSideBar>
+    <div class="content-box" :class="{ 'content-collapse': ClientSideBar.collapse }">
 <!--      <TagsView></TagsView>-->
       <div class="content">
         <router-view v-slot="{ Component }">

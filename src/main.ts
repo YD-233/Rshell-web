@@ -14,16 +14,12 @@ import "./assets/main.css"
 
 import plugins from '@/plugins'
 
-import directives from "@/components/Common/WaterMark";
-
-
 // 执行方法得到实例
 pinia.use(piniaPluginPersistedstate)
 
 const app = createApp(App)
 app.use(pinia)
 app.use(ElementPlus)
-app.use(directives)
 plugins(app)
 
 // 自定义权限指令

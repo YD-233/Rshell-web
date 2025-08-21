@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" name="ClientSideBar">
 import {computed} from "vue"
 import {useRoute, useRouter} from "vue-router"
 import {useSidebarStore} from "@/stores/sidebar"

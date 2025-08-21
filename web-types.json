@@ -3,9 +3,9 @@
   "framework": "vue",
   "name": "name written in package.json",
   "version": "version written in package.json",
+  "js-types-syntax": "typescript",
   "contributions": {
     "html": {
-      "types-syntax": "typescript",
       "attributes": []
     }
   }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {onMounted, reactive, ref} from 'vue'
 import {useTagsStore} from '@/stores/tags'
-import {usePermissStore} from '@/stores/userpermiss'
+
 import {useUserStore} from '@/stores/user'
 import {useRouter} from 'vue-router'
 import type {FormInstance, FormRules} from 'element-plus'
@@ -31,7 +31,7 @@ const rules: FormRules = {
   ],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 }
-const permiss = usePermissStore()
+
 const userinfo = useUserStore()
 const login = ref<FormInstance>()
 // 登陆的逻辑
@@ -42,13 +42,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
       UserApi.login(param).then((res) => {
         if (res.data.code == 200) {
           ElMessage.success('登录成功')
-          const keys = permiss.defaultList[res.data.data.permissions === 1 ? 'admin' : 'user']
-          console.log('keys', res.data.data.permissions === 1 ? 'admin' : 'user')
-          if (keys) {
-            permiss.handleSet(keys)
-          }
           userinfo.setToken(res.data.data.token)
-          userinfo.setPermiss(res.data.data.permissions)
           userinfo.setRefresh(res.data.data.refresh)
           userinfo.setRoles('超级管理员')
 

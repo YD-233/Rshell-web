@@ -20,8 +20,7 @@ const router = createRouter({
           path: '/Clients',
           name: 'Clients',
           meta: {
-            title: '客户端列表',
-            permiss: '2'
+            title: '客户端列表'
           },
           component: () => import('@/views/clients/ClientsView.vue')
         },
@@ -29,8 +28,7 @@ const router = createRouter({
           path: '/Listeners',
           name: 'Listeners',
           meta: {
-            title: 'Listener列表',
-            permiss: '2'
+            title: 'Listener列表'
           },
           component: () => import('@/views/listener/listener.vue')
         },
@@ -38,8 +36,7 @@ const router = createRouter({
           path: '/Server',
           name: 'Server',
           meta: {
-            title: '客户端生成',
-            permiss: '5'
+            title: '客户端生成'
           },
           component: () => import('@/views/server/ServerGen.vue')
         },
@@ -48,7 +45,7 @@ const router = createRouter({
           name: 'WebDelivery',
           meta: {
             title: 'WebDelivery',
-            permiss: '5'
+
           },
           component: () => import('@/views/server/WebDelivery.vue')
         },
@@ -58,7 +55,7 @@ const router = createRouter({
           name: 'resetpassword',
           meta: {
             title: '重置密码',
-            permiss: '1'
+
           },
           component: () => import('@/views/user/ResetPassword.vue')
         },
@@ -69,7 +66,7 @@ const router = createRouter({
       name: '客户端详情',
       meta: {
         title: '客户端详情',
-        permiss: '2'
+
       },
       component: () => import('@/views/client/ClientView.vue'),
       children: [
@@ -78,7 +75,7 @@ const router = createRouter({
           name: 'Shell',
           meta: {
             title: 'Shell',
-            permiss: 2
+
           },
           component: () => import('@/views/client/View/ClientShell.vue')
         },
@@ -86,8 +83,7 @@ const router = createRouter({
           path: '/client/files',
           name: 'Files',
           meta: {
-            title: 'Files',
-            permiss: 2
+            title: 'Files'
           },
           component: () => import('@/views/client/View/ClientFiles.vue')
         },
@@ -95,8 +91,7 @@ const router = createRouter({
           path: '/client/pid',
           name: 'PID',
           meta: {
-            title: 'PID',
-            permiss: 2
+            title: 'PID'
           },
           component: () => import('@/views/client/View/ClientPid.vue')
         },
@@ -104,8 +99,7 @@ const router = createRouter({
           path: '/client/downloads',
           name: 'Downloads',
           meta: {
-            title: 'Downloads',
-            permiss: 2
+            title: 'Downloads'
           },
           component: () => import('@/views/client/View/ClientDownloads.vue')
         },
@@ -113,8 +107,7 @@ const router = createRouter({
           path: '/client/notes',
           name: 'Notes',
           meta: {
-            title: 'Notes',
-            permiss: 2
+            title: 'Notes'
           },
           component: () => import('@/views/client/View/ClientNotes.vue')
         }

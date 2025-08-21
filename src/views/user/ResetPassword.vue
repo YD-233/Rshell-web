@@ -5,11 +5,9 @@ import router from '@/router';
 import type {FormInstance, FormRules} from 'element-plus'
 import {ElMessage} from 'element-plus';
 import {useUserStore} from "@/stores/user";
-import {usePermissStore} from "@/stores/userpermiss";
 import UserApi from '@/api/user'
 
 const userStore = useUserStore();
-const permissStore = usePermissStore();
 
 const dialogFormVisible = ref(true);
 const formLabelWidth = '140px';
@@ -64,7 +62,6 @@ const resetPassword = () => {
       ElMessage.success('重置成功')
       dialogFormVisible.value = false
       userStore.logout()
-      permissStore.clear()
       localStorage.clear()
       sessionStorage.clear()
       router.push('/login')

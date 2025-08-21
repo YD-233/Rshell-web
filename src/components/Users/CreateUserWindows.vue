@@ -18,7 +18,7 @@ const create_data = reactive<RuleForm>({
   password_again: '',
   email: '',
   phone: '',
-  permissions: "0"
+  permissions: "1" // 默认所有用户都是管理员
 })
 
 const ruleFormRef = ref<FormInstance>()
@@ -50,8 +50,8 @@ const rules = reactive<FormRules<RuleForm>>({
   email: [
     { required: true, message: '请输入邮箱', trigger: 'blur' },
     // { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
-  ],
-  permissions: [{ required: true, message: '请选择用户权限', trigger: 'blur' }]
+  ]
+  // 移除权限验证规则，所有用户默认为管理员
 })
 
 // 组件间数据通信
@@ -146,12 +146,7 @@ const onCancel = () => {
           style="width: 200px"
         />
       </el-form-item>
-      <el-form-item label="用户身份" prop="permissions">
-        <el-radio-group v-model="create_data.permissions">
-          <el-radio label="1">管理员</el-radio>
-          <el-radio label="0">普通用户</el-radio>
-        </el-radio-group>
-      </el-form-item>
+      <!-- 移除用户身份选择，所有用户默认为管理员 -->
       <el-form-item>
         <el-button type="primary" @click="onSubmit(ruleFormRef)">创建</el-button>
         <el-button @click="onCancel">取消</el-button>

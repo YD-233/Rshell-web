@@ -7,7 +7,6 @@ interface UserState {
     token: string;
     roles: string;
     username: string;
-    permiss: string;
     refresh: string;
 }
 
@@ -16,8 +15,7 @@ interface UserActions {
     getToken(): string;
     setRoles(val: string): void;
     getRoles(): string;
-    setPermiss(val: string): void;
-    getPermiss(): string;
+
     setUserName(val: string): void;
     getUserName(): string;
     setRefresh(val: string): void;
@@ -30,7 +28,7 @@ export const useUserStore = defineStore<'user', UserState, {}, UserActions>('use
         token: '',
         roles: '',
         username: '',
-        permiss: '',
+
         refresh: ''
     }),
     actions: {
@@ -47,12 +45,7 @@ export const useUserStore = defineStore<'user', UserState, {}, UserActions>('use
         getRoles(): string {
             return this.roles
         },
-        setPermiss(val: string): void {
-            this.permiss = val
-        },
-        getPermiss(): string {
-            return this.permiss
-        },
+
         setUserName(val: string): void {
             this.username = val
         },
@@ -70,7 +63,6 @@ export const useUserStore = defineStore<'user', UserState, {}, UserActions>('use
             this.token = ''
             this.roles = ''
             this.username = ''
-            this.permiss = ''
             this.refresh = ''
             router.push('/login')
         }
@@ -78,6 +70,6 @@ export const useUserStore = defineStore<'user', UserState, {}, UserActions>('use
     persist: {
         key: 'token',
         storage: localStorage,
-        pick: ['token', 'roles', 'username', 'permiss', 'refresh']
+        pick: ['token', 'roles', 'username', 'refresh']
     }
 })

@@ -3,7 +3,6 @@ import {computed} from "vue"
 import {useRoute, useRouter} from "vue-router"
 import {useSidebarStore} from "@/stores/sidebar"
 import {useTaskStore} from "@/stores/taskinfo";
-import {cancelRequest} from "@/utils/request";
 
 const TaskStore = useTaskStore()
 const sidebar = useSidebarStore()

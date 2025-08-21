@@ -2,7 +2,6 @@
 import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 import { useUserStore } from '@/stores/user'
-import { usePermissStore } from '@/stores/userpermiss'
 import { ArrowDown } from '@element-plus/icons-vue'
 import UserApi from '@/api/user'
 import { ElMessage } from 'element-plus'
@@ -12,7 +11,6 @@ const userinfo = useUserStore()
 const username: string | null = userinfo.getUserName()
 
 const router = useRouter()
-const permiss = usePermissStore()
 const collapseChange = () => {
   // user.handleCollapse()
 }
@@ -29,7 +27,6 @@ const handleCommand = async (command: string) => {
     cancelRequest();
     ElMessage.success('退出成功，即将跳转登陆')
     userinfo.logout()
-    permiss.clear()
     localStorage.clear()
     sessionStorage.clear()
     setTimeout(() => {
